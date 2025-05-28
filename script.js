@@ -192,7 +192,7 @@ form.addEventListener('submit', e => {
         return setTimeout(() => msgBox.textContent = '', 3000);
     }
 
-    const text = encodeURIComponent(`Mensagem: ${mensagem}`);
+    const text = encodeURIComponent(`Olá, tudo bem? Meu nome é ${nome}. ${mensagem}`);
     window.open(`https://wa.me/5551998862191?text=${text}`, '_blank');
 
     msgBox.textContent = 'Mensagem enviada com sucesso!';
@@ -201,6 +201,7 @@ form.addEventListener('submit', e => {
 
     setTimeout(() => msgBox.textContent = '', 3000);
 });
+
 
 // Animações das seções (Intersection Observer) só no desktop
 const sections = document.querySelectorAll('main section.section-animated');
