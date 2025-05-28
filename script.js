@@ -26,7 +26,7 @@ toggleBtn.addEventListener('click', () => {
 applyTheme();
 
 // Scroll suave para âncoras
-function smoothScroll(target, duration = 400) { // <- AQUI! De 800 para 400ms
+function smoothScroll(target, duration = 250) { // <- AQUI! De 800 para 400ms
     const el = document.querySelector(target);
     if (!el) return;
 
