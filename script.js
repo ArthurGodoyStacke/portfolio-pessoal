@@ -26,37 +26,33 @@ toggleBtn.addEventListener('click', () => {
 applyTheme();
 
 // Scroll suave para âncoras
-function smoothScroll(target, duration = 800) {
+function smoothScroll(target, duration = 400) { // <- AQUI! De 800 para 400ms
     const el = document.querySelector(target);
     if (!el) return;
 
     const headerH = document.querySelector('header').offsetHeight;
-    const to = el.getBoundingClientRect().top + window.scrollY - headerH - 20;
+    const to = el.getBoundingClientRect().top + window.pageYOffset - headerH - 20;
 
-    const start = window.scrollY;
-    const distance = to - start;
-    const startTime = performance.now();
+    const start = window.pageYOffset;
+    const dist = to - start;
+    let startTime = null;
 
-    function animateScroll(currentTime) {
-        const timeElapsed = currentTime - startTime;
-        const progress = Math.min(timeElapsed / duration, 1);
-
-        window.scrollTo(0, start + distance * ease(progress));
-
-        if (progress < 1) {
-            requestAnimationFrame(animateScroll);
-        }
+    function ease(t, b, c, d) {
+        t /= d / 2;
+        if (t < 1) return c / 2 * t * t + b;
+        t--;
+        return -c / 2 * (t * (t - 2) - 1) + b;
     }
 
-    function ease(t) {
-        return t < 0.5
-            ? 2 * t * t
-            : -1 + (4 - 2 * t) * t;
+    function anim(now) {
+        if (!startTime) startTime = now;
+        const t = now - startTime;
+        window.scrollTo(0, ease(t, start, dist, duration));
+        if (t < duration) requestAnimationFrame(anim);
     }
 
-    requestAnimationFrame(animateScroll);
+    requestAnimationFrame(anim);
 }
-
 
     // Animação
     function anim(now) {
