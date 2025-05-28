@@ -30,10 +30,6 @@ function smoothScroll(target, duration = 800) {
     const el = document.querySelector(target);
     if (!el) return;
 
-    // Ajuste aqui: O cabeçalho é fixo e o menu mobile está dentro da nav.
-    // O headerH ainda é relevante para o scroll offset, mas o menu mobile
-    // não precisa ser "escondido" no cálculo do scroll, pois ele aparece
-    // de forma diferente agora.
     const headerH = document.querySelector('header').offsetHeight;
     const to = el.getBoundingClientRect().top + window.pageYOffset - headerH - 20; // Mantém um pequeno offset
 
@@ -182,6 +178,31 @@ form.addEventListener('submit', e => {
 
     setTimeout(() => msgBox.textContent = '', 3000);
 });
+
+// Lógica de animação de entrada das seções (Intersection Observer)
+const sections = document.querySelectorAll('main section'); // Seleciona todas as seções dentro de <main>
+
+const observerOptions = {
+    root: null, // O viewport é o root
+    rootMargin: '0px',
+    threshold: 0.1 // 10% da seção visível para acionar
+};
+
+const sectionObserver = new IntersectionObserver((entries, observer) => {
+    entries.forEach(entry => {
+        if (entry.isIntersecting) {
+            entry.target.classList.remove('section-hidden');
+            entry.target.classList.add('section-visible');
+            observer.unobserve(entry.target); // Para de observar depois de animar uma vez
+        }
+    });
+}, observerOptions);
+
+// Observa cada seção
+sections.forEach(section => {
+    sectionObserver.observe(section);
+});
+
 
 // Inicia efeitos quando o DOM estiver pronto
 document.addEventListener('DOMContentLoaded', () => {
