@@ -8,12 +8,14 @@ let darkMode = localStorage.getItem('darkMode') !== 'false';
 function applyTheme() {
     if (darkMode) {
         htmlEl.classList.add('dark');
-        toggleBtn.textContent = 'Modo Light';
     } else {
         htmlEl.classList.remove('dark');
-        toggleBtn.textContent = 'Modo Dark';
     }
+
+    // Atualiza o emoji do botão
+    toggleBtn.textContent = darkMode ? '☀️' : '🌙';
 }
+
 
 // Alternar tema
 toggleBtn.addEventListener('click', () => {
@@ -26,7 +28,7 @@ toggleBtn.addEventListener('click', () => {
 applyTheme();
 
 // Scroll suave para âncoras
-function smoothScroll(target, duration = 800) { // <- AQUI! De 800 para 400ms
+function smoothScroll(target, baseSpeed = 0.5, minDuration = 300, maxDuration = 700) {
     const el = document.querySelector(target);
     if (!el) return;
 
@@ -34,7 +36,11 @@ function smoothScroll(target, duration = 800) { // <- AQUI! De 800 para 400ms
     const to = el.getBoundingClientRect().top + window.pageYOffset - headerH - 20;
 
     const start = window.pageYOffset;
-    const dist = to - start;
+    const distance = Math.abs(to - start);
+
+    // Calcula a duração com base na distância
+    const duration = Math.min(maxDuration, Math.max(minDuration, distance * baseSpeed));
+
     let startTime = null;
 
     function ease(t, b, c, d) {
@@ -47,12 +53,13 @@ function smoothScroll(target, duration = 800) { // <- AQUI! De 800 para 400ms
     function anim(now) {
         if (!startTime) startTime = now;
         const t = now - startTime;
-        window.scrollTo(0, ease(t, start, dist, duration));
+        window.scrollTo(0, ease(t, start, to - start, duration));
         if (t < duration) requestAnimationFrame(anim);
     }
 
     requestAnimationFrame(anim);
 }
+
 
     // Animação
     function anim(now) {
