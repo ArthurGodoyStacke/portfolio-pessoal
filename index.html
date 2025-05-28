@@ -1,417 +1,421 @@
 <!DOCTYPE html>
 <html lang="pt-BR" class="scroll-smooth">
-  <head>
+<head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Arthur | Portfólio</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
-      tailwind.config = {
-        darkMode: "class",
-        theme: {
-          extend: {
-            colors: {
-              cyan: tailwind.colors.blue,
-              gray: tailwind.colors.gray,
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        cyan: tailwind.colors.blue,
+                        gray: tailwind.colors.gray,
+                    },
+                    maxWidth: {
+                        "site-max": "1600px",
+                        "content-max": "1200px",
+                    },
+                },
             },
-            maxWidth: {
-              "site-max": "1600px",
-              "content-max": "1200px",
-            },
-          },
-        },
-      };
+        };
     </script>
     <style>
-      body {
-        font-family: Arial, sans-serif;
-        font-size: 16px;
-      }
-      .blinking-cursor {
-        animation: blink 1s infinite;
-      }
-      @keyframes blink {
-        0%,
-        100% {
-          opacity: 1;
+        body {
+            font-family: Arial, sans-serif;
+            font-size: 16px;
         }
-        50% {
-          opacity: 0;
+        .blinking-cursor {
+            animation: blink 1s infinite;
         }
-      }
-      body.no-scroll {
-        overflow: hidden;
-      }
+        @keyframes blink {
+            0%,
+            100% {
+                opacity: 1;
+            }
+            50% {
+                opacity: 0;
+            }
+        }
+        body.no-scroll {
+            overflow: hidden;
+        }
 
-      /* Otimização para o menu mobile: avisa o navegador sobre as mudanças */
-      #mobile-menu {
-        will-change: transform, opacity;
-      }
+        /* Otimização para o menu mobile: avisa o navegador sobre as mudanças */
+        #mobile-menu {
+            will-change: transform, opacity;
+        }
 
-      /* Scroll suave com offset para o cabeçalho fixo */
-      section[id] {
-        scroll-margin-top: 80px;
-      }
+        /* Scroll suave com offset para o cabeçalho fixo */
+        section[id] {
+            scroll-margin-top: 80px;
+        }
 
-      /* Classes para animar as seções APENAS EM DESKTOPS */
-      /* Estado inicial para animação - opacidade 0 e um pouco abaixo */
-      .section-animated {
-        opacity: 1; /* Sempre visível no mobile */
-        transform: translateY(0); /* Sem deslocamento */
-        transition: none; /* Sem transição de entrada */
-      }
-
-      /* Classe para o estado final da animação - totalmente visível */
-      .section-animated.is-visible {
-        opacity: 1;
-        transform: translateY(0);
-        transition: opacity 700ms ease-out, transform 700ms ease-out; /* Transição suave */
-      }
-
-      /* Media Query para DESATIVAR AS ANIMAÇÕES DE ENTRADA DAS SEÇÕES EM TELAS PEQUENAS */
-      /* Isso garante que no mobile elas apareçam instantaneamente, sem travamento */
-      @media (max-width: 767px) {
-        /* Corresponde ao breakpoint 'md' do Tailwind */
+        /* Classes para animar as seções APENAS EM DESKTOPS */
+        /* Estado inicial para animação - opacidade 0 e um pouco abaixo */
         .section-animated {
-          opacity: 1; /* Sempre visível no mobile */
-          transform: translateY(0); /* Sem deslocamento */
-          transition: none; /* Sem transição de entrada */
+            opacity: 0;
+            transform: translateY(20px);
+            will-change: opacity, transform; /* Avisa o navegador para otimizar */
         }
-      }
+
+        /* Classe para o estado final da animação - totalmente visível */
+        .section-animated.is-visible {
+            opacity: 1;
+            transform: translateY(0);
+            transition: opacity 700ms ease-out, transform 700ms ease-out; /* Transição suave */
+        }
+
+        /* Media Query para DESATIVAR AS ANIMAÇÕES DE ENTRADA DAS SEÇÕES EM TELAS PEQUENAS */
+        /* Isso garante que no mobile elas apareçam instantaneamente, sem travamento */
+        @media (max-width: 767px) { /* Corresponde ao breakpoint 'md' do Tailwind */
+            .section-animated {
+                opacity: 1; /* Sempre visível no mobile */
+                transform: translateY(0); /* Sem deslocamento */
+                transition: none; /* Sem transição de entrada */
+            }
+        }
     </style>
-  </head>
-  <body
+</head>
+<body
     class="dark:bg-gradient-to-br dark:from-[#0f172a] dark:to-[#020617] bg-white text-gray-800 dark:text-white transition-colors duration-300"
-  >
+>
     <div class="max-w-site-max mx-auto">
-      <header
-        class="fixed top-0 left-0 right-0 z-50 backdrop-blur-xl dark:bg-black/30 bg-white/80 shadow-lg"
-      >
-        <nav
-          class="max-w-content-max mx-auto flex justify-between items-center p-4 md:p-5 relative"
+        <header
+            class="fixed top-0 left-0 right-0 z-50 backdrop-blur-xl dark:bg-black/30 bg-white/80 shadow-lg"
         >
-          <a
-            href="#home"
-            class="text-cyan-400 text-2xl md:text-3xl font-extrabold tracking-wide"
-            >Arthur Godoy Stacke<span class="dark:text-white text-gray-800"
-              >.</span
-            ></a
-          >
-          <div class="flex items-center gap-4 md:gap-6">
-            <ul
-              class="hidden md:flex space-x-6 md:space-x-12 text-base md:text-lg font-semibold tracking-wide"
+            <nav
+                class="max-w-content-max mx-auto flex justify-between items-center p-4 md:p-5 relative"
             >
-              <li>
-                <a href="#home" class="hover:text-cyan-400 transition"
-                  >Início</a
+                <a
+                    href="#home"
+                    class="text-cyan-400 text-2xl md:text-3xl font-extrabold tracking-wide"
+                    >Arthur Godoy Stacke<span
+                        class="dark:text-white text-gray-800"
+                        >.</span
+                    ></a
                 >
-              </li>
-              <li>
-                <a href="#about" class="hover:text-cyan-400 transition"
-                  >Sobre</a
-                >
-              </li>
-              <li>
-                <a href="#projects" class="hover:text-cyan-400 transition"
-                  >Projetos</a
-                >
-              </li>
-              <li>
-                <a href="#skills" class="hover:text-cyan-400 transition"
-                  >Habilidades</a
-                >
-              </li>
-              <li>
-                <a href="#contact" class="hover:text-cyan-400 transition"
-                  >Contato</a
-                >
-              </li>
-            </ul>
-            <button
-              id="toggle-theme"
-              class="px-3 py-1 md:px-4 md:py-2 border border-cyan-400 rounded-lg text-cyan-400 hover:bg-cyan-400 hover:text-black transition text-sm md:text-base"
-            >
-              Modo Light
-            </button>
-            <button
-              id="menu-btn"
-              aria-label="Abrir menu"
-              class="md:hidden text-cyan-400"
-            >
-              <svg
-                class="w-6 h-6 md:w-8 md:h-8"
-                fill="none"
-                stroke="currentColor"
-                stroke-width="2"
-                viewBox="0 0 24 24"
-              >
-                <path d="M4 6h16M4 12h16M4 18h16"></path>
-              </svg>
-            </button>
-          </div>
+                <div class="flex items-center gap-4 md:gap-6">
+                    <ul
+                        class="hidden md:flex space-x-6 md:space-x-12 text-base md:text-lg font-semibold tracking-wide"
+                    >
+                        <li>
+                            <a href="#home" class="hover:text-cyan-400 transition"
+                                >Início</a
+                            >
+                        </li>
+                        <li>
+                            <a href="#about" class="hover:text-cyan-400 transition"
+                                >Sobre</a
+                            >
+                        </li>
+                        <li>
+                            <a href="#projects" class="hover:text-cyan-400 transition"
+                                >Projetos</a
+                            >
+                        </li>
+                        <li>
+                            <a href="#skills" class="hover:text-cyan-400 transition"
+                                >Habilidades</a
+                            >
+                        </li>
+                        <li>
+                            <a href="#contact" class="hover:text-cyan-400 transition"
+                                >Contato</a
+                            >
+                        </li>
+                    </ul>
+                    <button
+                        id="toggle-theme"
+                        class="px-3 py-1 md:px-4 md:py-2 border border-cyan-400 rounded-lg text-cyan-400 hover:bg-cyan-400 hover:text-black transition text-sm md:text-base"
+                    >
+                        Modo Light
+                    </button>
+                    <button
+                        id="menu-btn"
+                        aria-label="Abrir menu"
+                        class="md:hidden text-cyan-400"
+                    >
+                        <svg
+                            class="w-6 h-6 md:w-8 md:h-8"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-width="2"
+                            viewBox="0 0 24 24"
+                        >
+                            <path d="M4 6h16M4 12h16M4 18h16"></path>
+                        </svg>
+                    </button>
+                </div>
 
-          <div
-            id="mobile-menu"
-            class="absolute top-full left-0 right-0 dark:bg-black/90 bg-white/95 shadow-lg rounded-b-lg p-4 md:p-6 flex-col items-center space-y-4 md:space-y-6 text-base md:text-lg font-semibold transform -translate-y-full opacity-0 transition-transform transition-opacity duration-300 ease-in-out md:hidden"
-            style="display: none"
-          >
-            <a
-              href="#home"
-              class="block w-full text-center py-2 hover:text-cyan-400 transition"
-              >Início</a
-            >
-            <a
-              href="#about"
-              class="block w-full text-center py-2 hover:text-cyan-400 transition"
-              >Sobre</a
-            >
-            <a
-              href="#projects"
-              class="block w-full text-center py-2 hover:text-cyan-400 transition"
-              >Projetos</a
-            >
-            <a
-              href="#skills"
-              class="block w-full text-center py-2 hover:text-cyan-400 transition"
-              >Habilidades</a
-            >
-            <a
-              href="#contact"
-              class="block w-full text-center py-2 hover:text-cyan-400 transition"
-              >Contato</a
-            >
-          </div>
-        </nav>
-      </header>
-
-      <main class="pt-24 md:pt-32 max-w-content-max mx-auto px-4 md:px-6">
-        <section
-          id="home"
-          class="min-h-[80vh] flex flex-col justify-center items-center text-center space-y-6 md:space-y-8 px-4 section-animated"
-        >
-          <img
-            src="img/eu2.jpeg"
-            alt="Arthur"
-            class="w-28 h-28 sm:w-32 sm:h-32 md:w-40 md:h-40 rounded-full border-4 border-cyan-500 shadow-xl object-cover"
-          />
-
-          <h1 class="text-3xl md:text-5xl font-extrabold">
-            <span
-              id="typing-text"
-              class="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-blue-500"
-            ></span>
-            <span class="blinking-cursor">|</span>
-          </h1>
-          <p class="max-w-md md:max-w-xl text-base md:text-lg">
-            Desenvolvedor Front-End com foco em interfaces modernas e
-            experiências únicas.
-          </p>
-          <a
-            href="#projects"
-            class="mt-4 md:mt-6 px-6 py-2 md:px-8 md:py-3 bg-cyan-500 text-black font-bold rounded-lg shadow-lg hover:bg-cyan-400 transition text-sm md:text-base"
-          >
-            Ver Projetos
-          </a>
-        </section>
-
-        <section
-          id="about"
-          class="py-20 md:py-32 space-y-8 md:space-y-10 section-animated"
-        >
-          <h2
-            class="text-3xl md:text-4xl font-extrabold text-cyan-400 text-center"
-          >
-            Sobre Mim
-          </h2>
-          <p
-            class="text-center max-w-md md:max-w-3xl text-base md:text-lg mx-auto px-4"
-          >
-            Sou apaixonado por tecnologia, desenvolvimento web. Crio sites com
-            foco em performance, usabilidade e estilo inconfundível.
-          </p>
-        </section>
-
-        <section
-          id="projects"
-          class="py-20 md:py-32 space-y-12 md:space-y-24 section-animated"
-        >
-          <h2
-            class="text-3xl md:text-4xl font-extrabold text-cyan-400 text-center"
-          >
-            Meus Projetos
-          </h2>
-          <div
-            class="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-16 max-w-4xl md:max-w-5xl mx-auto px-4"
-          >
-            <div
-              class="group dark:bg-slate-900 bg-gray-100 rounded-xl shadow-lg hover:scale-[1.02] md:hover:scale-[1.05] hover:shadow-cyan-500 transition duration-300"
-            >
-              <img
-                src="img/ge.png"
-                alt="Projeto GE"
-                class="rounded-t-xl object-cover h-48 md:h-56 w-full"
-              />
-              <div class="p-6 md:p-10 space-y-4 md:space-y-5">
-                <h3
-                  class="text-lg md:text-xl font-semibold group-hover:text-cyan-400 transition"
+                <div
+                    id="mobile-menu"
+                    class="absolute top-full left-0 right-0
+                                dark:bg-black/90 bg-white/95 shadow-lg rounded-b-lg p-4 md:p-6
+                                flex-col items-center space-y-4 md:space-y-6 text-base md:text-lg font-semibold
+                                transform -translate-y-full opacity-0 transition-transform transition-opacity duration-300 ease-in-out
+                                md:hidden"
+                    style="display: none;"
                 >
-                  Tabela Brasileirão
-                </h3>
-                <p>
-                  Projeto criado com HTML, CSS, JavaScript dinâmico e
-                  interativo.
+                    <a
+                        href="#home"
+                        class="block w-full text-center py-2 hover:text-cyan-400 transition"
+                        >Início</a
+                    >
+                    <a
+                        href="#about"
+                        class="block w-full text-center py-2 hover:text-cyan-400 transition"
+                        >Sobre</a
+                    >
+                    <a
+                        href="#projects"
+                        class="block w-full text-center py-2 hover:text-cyan-400 transition"
+                        >Projetos</a
+                    >
+                    <a
+                        href="#skills"
+                        class="block w-full text-center py-2 hover:text-cyan-400 transition"
+                        >Habilidades</a
+                    >
+                    <a
+                        href="#contact"
+                        class="block w-full text-center py-2 hover:text-cyan-400 transition"
+                        >Contato</a
+                    >
+                </div>
+            </nav>
+        </header>
+
+        <main class="pt-24 md:pt-32 max-w-content-max mx-auto px-4 md:px-6">
+            <section
+                id="home"
+                class="min-h-[80vh] flex flex-col justify-center items-center text-center space-y-6 md:space-y-8 px-4 section-animated"
+            >
+                <img
+                    src="img/eu2.jpeg"
+                    alt="Arthur"
+                    class="w-28 h-28 sm:w-32 sm:h-32 md:w-40 md:h-40 rounded-full border-4 border-cyan-500 shadow-xl object-cover"
+                />
+
+                <h1 class="text-3xl md:text-5xl font-extrabold">
+                    <span
+                        id="typing-text"
+                        class="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-blue-500"
+                    ></span>
+                    <span class="blinking-cursor">|</span>
+                </h1>
+                <p class="max-w-md md:max-w-xl text-base md:text-lg">
+                    Desenvolvedor Front-End com foco em interfaces modernas e
+                    experiências únicas.
                 </p>
                 <a
-                  href="https://arthurgodoystacke.github.io/Site-Ge-/"
-                  target="_blank"
-                  rel="noopener"
-                  class="inline-block px-4 py-2 md:px-5 md:py-2 bg-cyan-500 text-black rounded-lg font-semibold hover:bg-cyan-400 transition shadow-md text-sm md:text-base"
+                    href="#projects"
+                    class="mt-4 md:mt-6 px-6 py-2 md:px-8 md:py-3 bg-cyan-500 text-black font-bold rounded-lg shadow-lg hover:bg-cyan-400 transition text-sm md:text-base"
                 >
-                  Abrir Projeto
+                    Ver Projetos
                 </a>
-              </div>
-            </div>
+            </section>
 
-            <div
-              class="group dark:bg-slate-900 bg-gray-100 rounded-xl shadow-lg hover:scale-[1.02] md:hover:scale-[1.05] hover:shadow-cyan-500 transition duration-300"
+            <section
+                id="about"
+                class="py-20 md:py-32 space-y-8 md:space-y-10 section-animated"
             >
-              <img
-                src="img/shop.png"
-                alt="Projeto E-commerce Urban Shop"
-                class="rounded-t-xl object-cover h-48 md:h-56 w-full"
-              />
-              <div class="p-6 md:p-10 space-y-4 md:space-y-5">
-                <h3
-                  class="text-lg md:text-xl font-semibold group-hover:text-cyan-400 transition"
+                <h2
+                    class="text-3xl md:text-4xl font-extrabold text-cyan-400 text-center"
                 >
-                  E-commerce Urban Shop
-                </h3>
-                <p>
-                  Mini e-commerce completo com carrinho de compras persistente,
-                  construído com HTML, Tailwind CSS e JavaScript puro.
+                    Sobre Mim
+                </h2>
+                <p
+                    class="text-center max-w-md md:max-w-3xl text-base md:text-lg mx-auto px-4"
+                >
+                    Sou apaixonado por tecnologia, desenvolvimento web. Crio sites com
+                    foco em performance, usabilidade e estilo inconfundível.
                 </p>
-                <a
-                  href="https://arthurgodoystacke.github.io/-Mini-e-commerce-Urban-Shop/"
-                  target="_blank"
-                  rel="noopener"
-                  class="inline-block px-4 py-2 md:px-5 md:py-2 bg-cyan-500 text-black rounded-lg font-semibold hover:bg-cyan-400 transition shadow-md text-sm md:text-base"
+            </section>
+
+            <section
+                id="projects"
+                class="py-20 md:py-32 space-y-12 md:space-y-24 section-animated"
+            >
+                <h2
+                    class="text-3xl md:text-4xl font-extrabold text-cyan-400 text-center"
                 >
-                  Abrir Projeto
-                </a>
-              </div>
-            </div>
-          </div>
-        </section>
+                    Meus Projetos
+                </h2>
+                <div
+                    class="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-16 max-w-4xl md:max-w-5xl mx-auto px-4"
+                >
+                    <div
+                        class="group dark:bg-slate-900 bg-gray-100 rounded-xl shadow-lg hover:scale-[1.02] md:hover:scale-[1.05] hover:shadow-cyan-500 transition duration-300"
+                    >
+                        <img
+                            src="img/ge.png"
+                            alt="Projeto GE"
+                            class="rounded-t-xl object-cover h-48 md:h-56 w-full"
+                        />
+                        <div class="p-6 md:p-10 space-y-4 md:space-y-5">
+                            <h3
+                                class="text-lg md:text-xl font-semibold group-hover:text-cyan-400 transition"
+                            >
+                                Tabela Brasileirão
+                            </h3>
+                            <p>
+                                Projeto criado com HTML, CSS, JavaScript dinâmico e
+                                interativo.
+                            </p>
+                            <a
+                                href="https://arthurgodoystacke.github.io/Site-Ge-/"
+                                target="_blank"
+                                rel="noopener"
+                                class="inline-block px-4 py-2 md:px-5 md:py-2 bg-cyan-500 text-black rounded-lg font-semibold hover:bg-cyan-400 transition shadow-md text-sm md:text-base"
+                            >
+                                Abrir Projeto
+                            </a>
+                        </div>
+                    </div>
 
-        <section
-          id="skills"
-          class="py-20 md:py-32 space-y-8 md:space-y-10 section-animated"
+                    <div
+                        class="group dark:bg-slate-900 bg-gray-100 rounded-xl shadow-lg hover:scale-[1.02] md:hover:scale-[1.05] hover:shadow-cyan-500 transition duration-300"
+                    >
+                        <img
+                            src="img/shop.png"
+                            alt="Projeto E-commerce Urban Shop"
+                            class="rounded-t-xl object-cover h-48 md:h-56 w-full"
+                        />
+                        <div class="p-6 md:p-10 space-y-4 md:space-y-5">
+                            <h3
+                                class="text-lg md:text-xl font-semibold group-hover:text-cyan-400 transition"
+                            >
+                                E-commerce Urban Shop
+                            </h3>
+                            <p>
+                                Mini e-commerce completo com carrinho de compras persistente,
+                                construído com HTML, Tailwind CSS e JavaScript puro.
+                            </p>
+                            <a
+                                href="https://arthurgodoystacke.github.io/-Mini-e-commerce-Urban-Shop/"
+                                target="_blank"
+                                rel="noopener"
+                                class="inline-block px-4 py-2 md:px-5 md:py-2 bg-cyan-500 text-black rounded-lg font-semibold hover:bg-cyan-400 transition shadow-md text-sm md:text-base"
+                            >
+                                Abrir Projeto
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section
+                id="skills"
+                class="py-20 md:py-32 space-y-8 md:space-y-10 section-animated"
+            >
+                <h2
+                    class="text-3xl md:text-4xl font-extrabold text-cyan-400 text-center"
+                >
+                    Minhas Habilidades
+                </h2>
+                <div
+                    class="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-4 gap-4 md:gap-8 max-w-4xl md:max-w-5xl mx-auto bg-gray-100 dark:bg-slate-900 p-4 md:p-8 rounded-2xl shadow-lg border border-cyan-500"
+                >
+                    <div
+                        class="flex flex-col items-center space-y-2 md:space-y-4 transition transform hover:scale-105 duration-300"
+                    >
+                        <img
+                            src="img/html.logo.png"
+                            alt="HTML"
+                            class="w-20 h-20 md:w-24 md:h-24 object-contain"
+                        />
+                        <p class="text-sm md:text-lg font-semibold">HTML</p>
+                    </div>
+                    <div
+                        class="flex flex-col items-center space-y-2 md:space-y-4 transition transform hover:scale-105 duration-300"
+                    >
+                        <img
+                            src="img/csslogo.png"
+                            alt="CSS"
+                            class="w-20 h-20 md:w-24 md:h-24 object-contain"
+                        />
+                        <p class="text-sm md:text-lg font-semibold">CSS</p>
+                    </div>
+                    <div
+                        class="flex flex-col items-center space-y-2 md:space-y-4 transition transform hover:scale-105 duration-300"
+                    >
+                        <img
+                            src="img/Tawinldlogo.png"
+                            alt="Tailwind CSS"
+                            class="w-20 h-20 md:w-24 md:h-24 object-contain"
+                        />
+                        <p class="text-sm md:text-lg font-semibold">Tailwind</p>
+                    </div>
+                    <div
+                        class="flex flex-col items-center space-y-2 md:space-y-4 transition transform hover:scale-105 duration-300"
+                    >
+                        <img
+                            src="img/JSlogo.png"
+                            alt="JavaScript"
+                            class="w-20 h-20 md:w-24 md:h-24 object-contain"
+                        />
+
+                        <p class="text-sm md:text-lg font-semibold">JavaScript</p>
+                    </div>
+                </div>
+            </section>
+
+            <section
+                id="contact"
+                class="py-20 md:py-32 space-y-6 md:space-y-8 max-w-md md:max-w-xl mx-auto px-4 section-animated"
+            >
+                <h2
+                    class="text-3xl md:text-4xl font-extrabold text-cyan-400 text-center"
+                >
+                    Contato
+                </h2>
+                <form
+                    id="contact-form"
+                    class="dark:bg-slate-900 bg-gray-100 p-6 md:p-8 rounded-xl shadow-lg border border-cyan-500 space-y-4 md:space-y-6"
+                >
+                    <input
+                        type="text"
+                        id="name"
+                        placeholder="Seu nome"
+                        required
+                        class="w-full px-4 py-2 md:py-3 rounded-md dark:bg-slate-800 bg-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-cyan-500 text-sm md:text-base"
+                    />
+                    <textarea
+                        id="message"
+                        rows="4"
+                        placeholder="Sua mensagem"
+                        required
+                        class="w-full px-4 py-2 md:py-3 rounded-md dark:bg-slate-800 bg-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-cyan-500 text-sm md:text-base"
+                    ></textarea>
+                    <button
+                        type="submit"
+                        class="w-full bg-cyan-500 hover:bg-cyan-400 transition rounded-lg py-2 md:py-3 font-bold text-black shadow-lg text-sm md:text-base"
+                    >
+                        Enviar
+                    </button>
+                    <p
+                        id="form-message"
+                        class="text-center mt-2 text-sm md:text-base"
+                    ></p>
+                </form>
+            </section>
+        </main>
+
+        <footer
+            class="max-w-content-max mx-auto py-6 md:py-8 text-center text-xs md:text-sm"
         >
-          <h2
-            class="text-3xl md:text-4xl font-extrabold text-cyan-400 text-center"
-          >
-            Minhas Habilidades
-          </h2>
-          <div
-            class="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-4 gap-4 md:gap-8 max-w-4xl md:max-w-5xl mx-auto bg-gray-100 dark:bg-slate-900 p-4 md:p-8 rounded-2xl shadow-lg border border-cyan-500"
-          >
-            <div
-              class="flex flex-col items-center space-y-2 md:space-y-4 transition transform hover:scale-105 duration-300"
+            © 2025 Arthur Godoy Stacke —
+            <a
+                href="https://www.linkedin.com/in/arthur-godoy-stacke/"
+                target="_blank"
+                class="hover:underline"
+                >LinkedIn</a
             >
-              <img
-                src="img/html.logo.png"
-                alt="HTML"
-                class="w-20 h-20 md:w-24 md:h-24 object-contain"
-              />
-              <p class="text-sm md:text-lg font-semibold">HTML</p>
-            </div>
-            <div
-              class="flex flex-col items-center space-y-2 md:space-y-4 transition transform hover:scale-105 duration-300"
-            >
-              <img
-                src="img/csslogo.png"
-                alt="CSS"
-                class="w-20 h-20 md:w-24 md:h-24 object-contain"
-              />
-              <p class="text-sm md:text-lg font-semibold">CSS</p>
-            </div>
-            <div
-              class="flex flex-col items-center space-y-2 md:space-y-4 transition transform hover:scale-105 duration-300"
-            >
-              <img
-                src="img/Tawinldlogo.png"
-                alt="Tailwind CSS"
-                class="w-20 h-20 md:w-24 md:h-24 object-contain"
-              />
-              <p class="text-sm md:text-lg font-semibold">Tailwind</p>
-            </div>
-            <div
-              class="flex flex-col items-center space-y-2 md:space-y-4 transition transform hover:scale-105 duration-300"
-            >
-              <img
-                src="img/JSlogo.png"
-                alt="JavaScript"
-                class="w-20 h-20 md:w-24 md:h-24 object-contain"
-              />
-
-              <p class="text-sm md:text-lg font-semibold">JavaScript</p>
-            </div>
-          </div>
-        </section>
-
-        <section
-          id="contact"
-          class="py-20 md:py-32 space-y-6 md:space-y-8 max-w-md md:max-w-xl mx-auto px-4 section-animated"
-        >
-          <h2
-            class="text-3xl md:text-4xl font-extrabold text-cyan-400 text-center"
-          >
-            Contato
-          </h2>
-          <form
-            id="contact-form"
-            class="dark:bg-slate-900 bg-gray-100 p-6 md:p-8 rounded-xl shadow-lg border border-cyan-500 space-y-4 md:space-y-6"
-          >
-            <input
-              type="text"
-              id="name"
-              placeholder="Seu nome"
-              required
-              class="w-full px-4 py-2 md:py-3 rounded-md dark:bg-slate-800 bg-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-cyan-500 text-sm md:text-base"
-            />
-            <textarea
-              id="message"
-              rows="4"
-              placeholder="Sua mensagem"
-              required
-              class="w-full px-4 py-2 md:py-3 rounded-md dark:bg-slate-800 bg-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-cyan-500 text-sm md:text-base"
-            ></textarea>
-            <button
-              type="submit"
-              class="w-full bg-cyan-500 hover:bg-cyan-400 transition rounded-lg py-2 md:py-3 font-bold text-black shadow-lg text-sm md:text-base"
-            >
-              Enviar
-            </button>
-            <p
-              id="form-message"
-              class="text-center mt-2 text-sm md:text-base"
-            ></p>
-          </form>
-        </section>
-      </main>
-
-      <footer
-        class="max-w-content-max mx-auto py-6 md:py-8 text-center text-xs md:text-sm"
-      >
-        © 2025 Arthur Godoy Stacke —
-        <a
-          href="https://www.linkedin.com/in/arthur-godoy-stacke/"
-          target="_blank"
-          class="hover:underline"
-          >LinkedIn</a
-        >
-      </footer>
+        </footer>
     </div>
     <script src="script.js"></script>
-  </body>
+</body>
 </html>

@@ -191,7 +191,7 @@ const observerOptions = {
 const sectionObserver = new IntersectionObserver((entries, observer) => {
     entries.forEach(entry => {
         if (entry.isIntersecting) {
-            // Adiciona a classe 'is-visible' para iniciar a transição
+            // Adiciona a classe 'is-visible' para iniciar a transição (no desktop)
             entry.target.classList.add('is-visible');
             observer.unobserve(entry.target); // Para de observar depois de animar uma vez
         }
