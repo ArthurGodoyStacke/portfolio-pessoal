@@ -1,394 +1,245 @@
 <!DOCTYPE html>
-<html lang="pt-BR" class="scroll-smooth">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Arthur | Portfólio</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-      tailwind.config = {
-        darkMode: "class",
-        theme: {
-          extend: {
-            colors: {
-              cyan: tailwind.colors.blue,
-              gray: tailwind.colors.gray,
-            },
-            maxWidth: {
-              "site-max": "1600px",
-              "content-max": "1200px",
-            },
-            animation: {
-              fade: "fadeIn 0.5s ease-in",
-            },
-            keyframes: {
-              fadeIn: {
-                "0%": { opacity: "0" },
-                "100%": { opacity: "1" },
-              },
-            },
-          },
-        },
-      };
-    </script>
+<html lang="pt-br" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Arthur Godoy Stacke - Portfólio</title>
+    <link rel="icon" type="image/x-icon" href="./img/favicon.ico">
+    <link href="./output.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.css" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
     <style>
-      body {
-        font-family: Arial, sans-serif;
-        font-size: 16px;
-      }
-      .blinking-cursor {
-        animation: blink 1s infinite;
-      }
-      @keyframes blink {
-        0%,
-        100% {
-          opacity: 1;
+        /* Define a fonte Poppins como padrão para o body */
+        body {
+            font-family: 'Poppins', sans-serif;
         }
-        50% {
-          opacity: 0;
+
+        /* Otimização para o menu mobile: avisa o navegador sobre as mudanças */
+        #mobile-menu {
+            will-change: transform, opacity;
         }
-      }
-      /* Adicionado para rolagem suave do corpo */
-      body.no-scroll {
-        overflow: hidden; /* Isso impede a rolagem quando o menu mobile está aberto */
-      }
+
+        /* Scroll suave com offset para o cabeçalho fixo */
+        section[id] {
+            scroll-margin-top: 80px; /* Ajuste se a altura do seu header mudar */
+        }
+
+        /* Classe para bloquear a rolagem do body quando modais estão abertos */
+        .no-scroll {
+            overflow: hidden;
+        }
+
+        /* Estilo para ajustar a altura da imagem "eu2.jpeg" na seção "Sobre" */
+        #about img {
+            max-height: 400px; /* Ou o valor que você achar melhor */
+            object-fit: cover;
+        }
     </style>
-  </head>
-  <body
-    class="dark:bg-gradient-to-br dark:from-[#0f172a] dark:to-[#020617] bg-white text-gray-800 dark:text-white transition-colors duration-300"
-  >
-    <div class="max-w-site-max mx-auto">
-      <header
-        class="fixed top-0 left-0 right-0 z-50 backdrop-blur-xl dark:bg-black/30 bg-white/80 shadow-lg"
-      >
-        <nav
-          class="max-w-content-max mx-auto flex justify-between items-center p-4 md:p-5 relative" >
-          <a
-            href="#home"
-            class="text-cyan-400 text-2xl md:text-3xl font-extrabold tracking-wide"
-            >Arthur Godoy Stacke<span class="dark:text-white text-gray-800"
-              >.</span
-            ></a
-          >
-          <div class="flex items-center gap-4 md:gap-6">
-            <ul
-              class="hidden md:flex space-x-6 md:space-x-12 text-base md:text-lg font-semibold tracking-wide"
-            >
-              <li>
-                <a href="#home" class="hover:text-cyan-400 transition"
-                  >Início</a
-                >
-              </li>
-              <li>
-                <a href="#about" class="hover:text-cyan-400 transition"
-                  >Sobre</a
-                >
-              </li>
-              <li>
-                <a href="#projects" class="hover:text-cyan-400 transition"
-                  >Projetos</a
-                >
-              </li>
-              <li>
-                <a href="#skills" class="hover:text-cyan-400 transition"
-                  >Habilidades</a
-                >
-              </li>
-              <li>
-                <a href="#contact" class="hover:text-cyan-400 transition"
-                  >Contato</a
-                >
-              </li>
-            </ul>
-            <button
-              id="toggle-theme"
-              class="px-3 py-1 md:px-4 md:py-2 border border-cyan-400 rounded-lg text-cyan-400 hover:bg-cyan-400 hover:text-black transition text-sm md:text-base"
-            >
-              Modo Light
+</head>
+<body class="bg-gradient-to-br from-gray-900 to-black text-gray-100 overflow-x-hidden">
+
+    <header class="fixed top-0 left-0 w-full bg-black/80 backdrop-blur-md shadow-lg z-50">
+        <div class="container mx-auto flex items-center justify-between p-4">
+            <a href="#home" class="flex items-center space-x-2">
+                <img src="./img/eu.jpeg" alt="Meu rosto" class="h-10 w-10 rounded-full object-cover border-2 border-cyan-400">
+                <span class="font-bold text-xl text-cyan-400">Arthur Stacke</span>
+            </a>
+
+            <nav class="hidden md:flex space-x-8 font-semibold text-gray-300">
+                <a href="#home" class="hover:text-cyan-400 transition">Início</a>
+                <a href="#about" class="hover:text-cyan-400 transition">Sobre</a>
+                <a href="#projects" class="hover:text-cyan-400 transition">Projetos</a>
+                <a href="#skills" class="hover:text-cyan-400 transition">Habilidades</a>
+                <a href="#contact" class="hover:text-cyan-400 transition">Contato</a>
+            </nav>
+
+            <div class="flex items-center space-x-4">
+                <button id="toggle-theme" class="hidden md:block bg-gray-700 hover:bg-gray-600 text-white px-4 py-2 rounded-full text-sm transition">
+                    Modo Light
+                </button>
+                <button id="menu-btn" class="md:hidden focus:outline-none" aria-label="Abrir menu mobile">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-cyan-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16" />
+                    </svg>
+                </button>
+            </div>
+        </div>
+
+        <div
+            id="mobile-menu"
+            class="absolute top-full left-0 right-0 dark:bg-black/90 bg-white/95 /* backdrop-blur-md removido */ shadow-lg rounded-b-lg p-4 flex-col items-center space-y-4 text-base font-semibold
+            transform -translate-y-full opacity-0 transition-transform transition-opacity duration-300 ease-in-out md:hidden"
+            style="display: none;"
+        >
+            <a href="#home" class="block w-full text-center py-2 text-gray-800 dark:text-gray-100 hover:text-cyan-400 transition">Início</a>
+            <a href="#about" class="block w-full text-center py-2 text-gray-800 dark:text-gray-100 hover:text-cyan-400 transition">Sobre</a>
+            <a href="#projects" class="block w-full text-center py-2 text-gray-800 dark:text-gray-100 hover:text-cyan-400 transition">Projetos</a>
+            <a href="#skills" class="block w-full text-center py-2 text-gray-800 dark:text-gray-100 hover:text-cyan-400 transition">Habilidades</a>
+            <a href="#contact" class="block w-full text-center py-2 text-gray-800 dark:text-gray-100 hover:text-cyan-400 transition">Contato</a>
+            <button id="toggle-theme-mobile" class="md:hidden bg-gray-700 hover:bg-gray-600 text-white px-4 py-2 rounded-full text-sm transition mt-2">
+                Modo Light
             </button>
-            <button
-              id="menu-btn"
-              aria-label="Abrir menu"
-              class="md:hidden text-cyan-400"
-            >
-              <svg
-                class="w-6 h-6 md:w-8 md:h-8"
-                fill="none"
-                stroke="currentColor"
-                stroke-width="2"
-                viewBox="0 0 24 24"
-              >
-                <path d="M4 6h16M4 12h16M4 18h16"></path>
-              </svg>
-            </button>
-          </div>
+        </div>
+    </header>
 
-          <div
-  id="mobile-menu"
-  class="absolute top-full left-0 right-0
-         dark:bg-black/90 bg-white/95 shadow-lg rounded-b-lg p-4 md:p-6
-         flex-col items-center space-y-4 md:space-y-6 text-base md:text-lg font-semibold
-         transform -translate-y-full opacity-0 transition-transform transition-opacity duration-300 ease-in-out
-         md:hidden"
-  style="display: none;"
->
-  <a
-    href="#home"
-    class="block w-full text-center py-2 hover:text-cyan-400 transition"
-    >Início</a
-  >
-  <a
-    href="#about"
-    class="block w-full text-center py-2 hover:text-cyan-400 transition"
-    >Sobre</a
-  >
-  <a
-    href="#projects"
-    class="block w-full text-center py-2 hover:text-cyan-400 transition"
-    >Projetos</a
-  >
-  <a
-    href="#skills"
-    class="block w-full text-center py-2 hover:text-cyan-400 transition"
-    >Habilidades</a
-  >
-  <a
-    href="#contact"
-    class="block w-full text-center py-2 hover:text-cyan-400 transition"
-    >Contato</a
-  >
-</div>
-        </nav>
-      </header>
-
-      <main class="pt-24 md:pt-32 max-w-content-max mx-auto px-4 md:px-6">
-        <section
-          id="home"
-          class="min-h-[80vh] flex flex-col justify-center items-center text-center space-y-6 md:space-y-8 px-4"
-        >
-          <img
-            src="img/eu2.jpeg"
-            alt="Arthur"
-            class="w-28 h-28 sm:w-32 sm:h-32 md:w-40 md:h-40 rounded-full border-4 border-cyan-500 shadow-xl object-cover"
-          />
-
-          <h1 class="text-3xl md:text-5xl font-extrabold">
-            <span
-              id="typing-text"
-              class="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-blue-500"
-            ></span>
-            <span class="blinking-cursor">|</span>
-          </h1>
-          <p class="max-w-md md:max-w-xl text-base md:text-lg">
-            Desenvolvedor Front-End com foco em interfaces modernas e
-            experiências únicas.
-          </p>
-          <a
-            href="#projects"
-            class="mt-4 md:mt-6 px-6 py-2 md:px-8 md:py-3 bg-cyan-500 text-black font-bold rounded-lg shadow-lg hover:bg-cyan-400 transition text-sm md:text-base"
-          >
-            Ver Projetos
-          </a>
-        </section>
-
-        <section
-          id="about"
-          class="py-20 md:py-32 space-y-8 md:space-y-10 animate-fade"
-        >
-          <h2
-            class="text-3xl md:text-4xl font-extrabold text-cyan-400 text-center"
-          >
-            Sobre Mim
-          </h2>
-          <p
-            class="text-center max-w-md md:max-w-3xl text-base md:text-lg mx-auto px-4"
-          >
-            Sou apaixonado por tecnologia, desenvolvimento web. Crio sites com
-            foco em performance, usabilidade e estilo inconfundível.
-          </p>
-        </section>
-
-        <section
-          id="projects"
-          class="py-20 md:py-32 space-y-12 md:space-y-24 animate-fade"
-        >
-          <h2
-            class="text-3xl md:text-4xl font-extrabold text-cyan-400 text-center"
-          >
-            Meus Projetos
-          </h2>
-          <div
-            class="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-16 max-w-4xl md:max-w-5xl mx-auto px-4"
-          >
-            <div
-              class="group dark:bg-slate-900 bg-gray-100 rounded-xl shadow-lg hover:scale-[1.02] md:hover:scale-[1.05] hover:shadow-cyan-500 transition duration-300"
-            >
-              <img
-                src="img/ge.png"
-                alt="Projeto GE"
-                class="rounded-t-xl object-cover h-48 md:h-56 w-full"
-              />
-              <div class="p-6 md:p-10 space-y-4 md:space-y-5">
-                <h3
-                  class="text-lg md:text-xl font-semibold group-hover:text-cyan-400 transition"
-                >
-                  Tabela Brasileirão
-                </h3>
-                <p>
-                  Projeto criado com HTML, CSS, JavaScript dinâmico e
-                  interativo.
-                </p>
-                <a
-                  href="https://arthurgodoystacke.github.io/Site-Ge-/"
-                  target="_blank"
-                  rel="noopener"
-                  class="inline-block px-4 py-2 md:px-5 md:py-2 bg-cyan-500 text-black rounded-lg font-semibold hover:bg-cyan-400 transition shadow-md text-sm md:text-base"
-                >
-                  Abrir Projeto
+    <main class="container mx-auto px-4 py-20">
+        <section id="home" class="min-h-screen flex flex-col justify-center items-center text-center opacity-0 transform translate-y-20 transition-transform transition-opacity duration-1000 ease-in-out">
+            <h1 class="text-4xl md:text-6xl font-extrabold leading-tight text-white mb-4 animate-fade-in-up">
+                Olá, me chamo Arthur Godoy Stacke
+            </h1>
+            <p id="typing-text" class="text-xl md:text-2xl text-cyan-400 font-medium mb-8 min-h-[30px]"></p>
+            <div class="flex space-x-4">
+                <a href="#projects" class="bg-cyan-600 hover:bg-cyan-700 text-white px-6 py-3 rounded-full text-lg font-semibold transition shadow-lg">
+                    Ver Projetos
                 </a>
-              </div>
-            </div>
-
-            <div
-              class="group dark:bg-slate-900 bg-gray-100 rounded-xl shadow-lg hover:scale-[1.02] md:hover:scale-[1.05] hover:shadow-cyan-500 transition duration-300"
-            >
-              <img
-                src="img/shop.png"
-                alt="Projeto E-commerce Urban Shop"
-                class="rounded-t-xl object-cover h-48 md:h-56 w-full"
-              />
-              <div class="p-6 md:p-10 space-y-4 md:space-y-5">
-                <h3
-                  class="text-lg md:text-xl font-semibold group-hover:text-cyan-400 transition"
-                >
-                  E-commerce Urban Shop
-                </h3>
-                <p>
-                  Mini e-commerce completo com carrinho de compras persistente,
-                  construído com HTML, Tailwind CSS e JavaScript puro.
-                </p>
-                <a
-                  href="https://arthurgodoystacke.github.io/-Mini-e-commerce-Urban-Shop/"
-                  target="_blank"
-                  rel="noopener"
-                  class="inline-block px-4 py-2 md:px-5 md:py-2 bg-cyan-500 text-black rounded-lg font-semibold hover:bg-cyan-400 transition shadow-md text-sm md:text-base"
-                >
-                  Abrir Projeto
+                <a href="#contact" class="border border-cyan-600 text-cyan-400 hover:bg-cyan-600 hover:text-white px-6 py-3 rounded-full text-lg font-semibold transition shadow-lg">
+                    Contato
                 </a>
-              </div>
             </div>
-          </div>
+            <div class="absolute bottom-10 animate-bounce">
+                <a href="#about">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10 text-cyan-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M19 14l-7 7m0 0l-7-7m7 7V3" />
+                    </svg>
+                </a>
+            </div>
         </section>
 
-        <section
-          id="skills"
-          class="py-20 md:py-32 space-y-8 md:space-y-10 animate-fade"
-        >
-          <h2
-            class="text-3xl md:text-4xl font-extrabold text-cyan-400 text-center"
-          >
-            Minhas Habilidades
-          </h2>
-          <div
-            class="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-4 gap-4 md:gap-8 max-w-4xl md:max-w-5xl mx-auto bg-gray-100 dark:bg-slate-900 p-4 md:p-8 rounded-2xl shadow-lg border border-cyan-500"
-          >
-            <div
-              class="flex flex-col items-center space-y-2 md:space-y-4 transition transform hover:scale-105 duration-300"
-            >
-              <img
-                src="img/html.logo.png"
-                alt="HTML"
-                class="w-20 h-20 md:w-24 md:h-24 object-contain"
-              />
-              <p class="text-sm md:text-lg font-semibold">HTML</p>
+        <section id="about" class="py-16 md:py-24 bg-gray-800 rounded-lg shadow-xl text-center opacity-0 transform translate-y-20 transition-transform transition-opacity duration-1000 ease-in-out">
+            <h2 class="text-4xl font-bold mb-12 text-white">Sobre Mim</h2>
+            <div class="flex flex-col md:flex-row items-center justify-center gap-12 px-6">
+                <div class="w-full md:w-1/3 flex justify-center">
+                    <img src="./img/eu2.jpeg" alt="Arthur Godoy Stacke" class="rounded-lg shadow-lg w-full h-auto object-cover max-w-sm border-4 border-cyan-600">
+                </div>
+                <div class="w-full md:w-2/3 text-lg text-gray-300 text-left leading-relaxed">
+                    <p class="mb-4">
+                        Olá! Sou Arthur Godoy Stacke, um desenvolvedor Front-End apaixonado por criar interfaces web intuitivas e responsivas. Minha jornada na programação começou com a curiosidade de como as coisas funcionam na internet, e desde então, tenho me dedicado a transformar ideias em realidade digital.
+                    </p>
+                    <p class="mb-4">
+                        Sou especializado em <span class="font-semibold text-cyan-400">HTML5</span>, <span class="font-semibold text-cyan-400">CSS3</span> (com foco em Tailwind CSS), e <span class="font-semibold text-cyan-400">JavaScript</span>. Busco constantemente aprender novas tecnologias e aprimorar minhas habilidades para construir soluções robustas e elegantes.
+                    </p>
+                    <p>
+                        Acredito que um bom código deve ser limpo, eficiente e escalável, e sempre busco a melhor forma de otimizar a experiência do usuário. Estou sempre em busca de novos desafios e oportunidades para contribuir com projetos inovadores.
+                    </p>
+                </div>
             </div>
-            <div
-              class="flex flex-col items-center space-y-2 md:space-y-4 transition transform hover:scale-105 duration-300"
-            >
-              <img
-                src="img/csslogo.png"
-                alt="CSS"
-                class="w-20 h-20 md:w-24 md:h-24 object-contain"
-              />
-              <p class="text-sm md:text-lg font-semibold">CSS</p>
-            </div>
-            <div
-              class="flex flex-col items-center space-y-2 md:space-y-4 transition transform hover:scale-105 duration-300"
-            >
-              <img
-                src="img/Tawinldlogo.png"
-                alt="Tailwind CSS"
-                class="w-20 h-20 md:w-24 md:h-24 object-contain"
-              />
-              <p class="text-sm md:text-lg font-semibold">Tailwind</p>
-            </div>
-            <div
-              class="flex flex-col items-center space-y-2 md:space-y-4 transition transform hover:scale-105 duration-300"
-            >
-              <img
-                src="img/JSlogo.png"
-                alt="JavaScript"
-                class="w-20 h-20 md:w-24 md:h-24 object-contain"
-              />
-
-              <p class="text-sm md:text-lg font-semibold">JavaScript</p>
-            </div>
-          </div>
         </section>
 
-        <section
-          id="contact"
-          class="py-20 md:py-32 space-y-6 md:space-y-8 max-w-md md:max-w-xl mx-auto animate-fade px-4"
-        >
-          <h2
-            class="text-3xl md:text-4xl font-extrabold text-cyan-400 text-center"
-          >
-            Contato
-          </h2>
-          <form
-            id="contact-form"
-            class="dark:bg-slate-900 bg-gray-100 p-6 md:p-8 rounded-xl shadow-lg border border-cyan-500 space-y-4 md:space-y-6"
-          >
-            <input
-              type="text"
-              id="name"
-              placeholder="Seu nome"
-              required
-              class="w-full px-4 py-2 md:py-3 rounded-md dark:bg-slate-800 bg-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-cyan-500 text-sm md:text-base"
-            />
-            <textarea
-              id="message"
-              rows="4"
-              placeholder="Sua mensagem"
-              required
-              class="w-full px-4 py-2 md:py-3 rounded-md dark:bg-slate-800 bg-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-cyan-500 text-sm md:text-base"
-            ></textarea>
-            <button
-              type="submit"
-              class="w-full bg-cyan-500 hover:bg-cyan-400 transition rounded-lg py-2 md:py-3 font-bold text-black shadow-lg text-sm md:text-base"
-            >
-              Enviar
-            </button>
-            <p
-              id="form-message"
-              class="text-center mt-2 text-sm md:text-base"
-            ></p>
-          </form>
-        </section>
-      </main>
+        <section id="projects" class="py-16 md:py-24 opacity-0 transform translate-y-20 transition-transform transition-opacity duration-1000 ease-in-out">
+            <h2 class="text-4xl font-bold text-center mb-12 text-white">Meus Projetos</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <div class="bg-gray-800 rounded-lg shadow-xl overflow-hidden transform hover:scale-105 transition-transform duration-300">
+                    <img src="./img/shop.png" alt="Mini E-commerce" class="w-full h-48 object-cover">
+                    <div class="p-6">
+                        <h3 class="text-2xl font-bold mb-2 text-white">Mini E-commerce</h3>
+                        <p class="text-gray-400 mb-4">
+                            Um projeto de e-commerce simples com funcionalidades de carrinho de compras e visualização de produtos.
+                        </p>
+                        <div class="flex flex-wrap gap-2 mb-4">
+                            <span class="bg-gray-700 text-gray-300 text-sm px-3 py-1 rounded-full">HTML</span>
+                            <span class="bg-gray-700 text-gray-300 text-sm px-3 py-1 rounded-full">CSS</span>
+                            <span class="bg-gray-700 text-gray-300 text-sm px-3 py-1 rounded-full">JavaScript</span>
+                        </div>
+                        <div class="flex justify-end space-x-4">
+                            <a href="https://github.com/ArthurGodoyStacke/mini-e-commerce" target="_blank" class="text-cyan-400 hover:text-cyan-500 transition">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-7 w-7" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" />
+                                </svg>
+                            </a>
+                            <a href="https://arthurgodoystacke.github.io/mini-e-commerce/" target="_blank" class="bg-cyan-600 hover:bg-cyan-700 text-white px-5 py-2 rounded-full text-md font-semibold transition">
+                                Ver Projeto
+                            </a>
+                        </div>
+                    </div>
+                </div>
 
-      <footer
-        class="max-w-content-max mx-auto py-6 md:py-8 text-center text-xs md:text-sm"
-      >
-        © 2025 Arthur Godoy Stacke —
-        <a
-          href="https://www.linkedin.com/in/arthur-godoy-stacke/"
-          target="_blank"
-          class="hover:underline"
-          >LinkedIn</a
-        >
-      </footer>
-    </div>
+                <div class="bg-gray-800 rounded-lg shadow-xl overflow-hidden transform hover:scale-105 transition-transform duration-300">
+                    <img src="./img/ge.png" alt="Gestão de Estoque" class="w-full h-48 object-cover">
+                    <div class="p-6">
+                        <h3 class="text-2xl font-bold mb-2 text-white">Gestão de Estoque</h3>
+                        <p class="text-gray-400 mb-4">
+                            Sistema de gestão de estoque para controle de produtos, entradas e saídas.
+                        </p>
+                        <div class="flex flex-wrap gap-2 mb-4">
+                            <span class="bg-gray-700 text-gray-300 text-sm px-3 py-1 rounded-full">HTML</span>
+                            <span class="bg-gray-700 text-gray-300 text-sm px-3 py-1 rounded-full">CSS</span>
+                            <span class="bg-gray-700 text-gray-300 text-sm px-3 py-1 rounded-full">JavaScript</span>
+                        </div>
+                        <div class="flex justify-end space-x-4">
+                            <a href="https://github.com/ArthurGodoyStacke/sistema-de-gestao-de-estoque" target="_blank" class="text-cyan-400 hover:text-cyan-500 transition">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-7 w-7" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" />
+                                </svg>
+                            </a>
+                            <a href="https://arthurgodoystacke.github.io/sistema-de-gestao-de-estoque/" target="_blank" class="bg-cyan-600 hover:bg-cyan-700 text-white px-5 py-2 rounded-full text-md font-semibold transition">
+                                Ver Projeto
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                </div>
+        </section>
+
+        <section id="skills" class="py-16 md:py-24 bg-gray-800 rounded-lg shadow-xl text-center opacity-0 transform translate-y-20 transition-transform transition-opacity duration-1000 ease-in-out">
+            <h2 class="text-4xl font-bold mb-12 text-white">Minhas Habilidades</h2>
+            <div class="flex flex-wrap justify-center gap-8">
+                <div class="skill-item bg-gray-700 p-6 rounded-lg shadow-md flex flex-col items-center transform hover:scale-110 transition-transform duration-300">
+                    <img src="./img/htmllogo.png" alt="HTML5" class="h-16 w-16 mb-4">
+                    <span class="text-white text-lg font-semibold">HTML5</span>
+                </div>
+                <div class="skill-item bg-gray-700 p-6 rounded-lg shadow-md flex flex-col items-center transform hover:scale-110 transition-transform duration-300">
+                    <img src="./img/csslogo.png" alt="CSS3" class="h-16 w-16 mb-4">
+                    <span class="text-white text-lg font-semibold">CSS3</span>
+                </div>
+                <div class="skill-item bg-gray-700 p-6 rounded-lg shadow-md flex flex-col items-center transform hover:scale-110 transition-transform duration-300">
+                    <img src="./img/jslogo.png" alt="JavaScript" class="h-16 w-16 mb-4">
+                    <span class="text-white text-lg font-semibold">JavaScript</span>
+                </div>
+                <div class="skill-item bg-gray-700 p-6 rounded-lg shadow-md flex flex-col items-center transform hover:scale-110 transition-transform duration-300">
+                    <img src="./img/tailwindlogo.png" alt="Tailwind CSS" class="h-16 w-16 mb-4">
+                    <span class="text-white text-lg font-semibold">Tailwind CSS</span>
+                </div>
+                </div>
+        </section>
+
+        <section id="contact" class="py-16 md:py-24 opacity-0 transform translate-y-20 transition-transform transition-opacity duration-1000 ease-in-out">
+            <h2 class="text-4xl font-bold text-center mb-12 text-white">Contato</h2>
+            <div class="bg-gray-800 rounded-lg shadow-xl p-8 max-w-2xl mx-auto">
+                <form id="contact-form">
+                    <div class="mb-6">
+                        <label for="name" class="block text-gray-300 text-lg font-medium mb-2">Seu Nome</label>
+                        <input type="text" id="name" name="name" class="w-full px-4 py-3 rounded-lg bg-gray-700 border border-gray-600 text-white focus:ring-cyan-500 focus:border-cyan-500" placeholder="Digite seu nome" required>
+                    </div>
+                    <div class="mb-6">
+                        <label for="message" class="block text-gray-300 text-lg font-medium mb-2">Sua Mensagem</label>
+                        <textarea id="message" name="message" rows="5" class="w-full px-4 py-3 rounded-lg bg-gray-700 border border-gray-600 text-white focus:ring-cyan-500 focus:border-cyan-500" placeholder="Escreva sua mensagem aqui" required></textarea>
+                    </div>
+                    <button type="submit" class="w-full bg-cyan-600 hover:bg-cyan-700 text-white px-6 py-3 rounded-full text-lg font-semibold transition shadow-lg">
+                        Enviar Mensagem (WhatsApp)
+                    </button>
+                    <p id="form-message" class="text-center mt-4"></p>
+                </form>
+            </div>
+        </section>
+    </main>
+
+    <footer class="bg-black/80 py-8 mt-20 text-center text-gray-400">
+        <div class="container mx-auto px-4">
+            <p>&copy; 2025 Arthur Godoy Stacke. Todos os direitos reservados.</p>
+            <div class="flex justify-center space-x-6 mt-4">
+                <a href="https://github.com/ArthurGodoyStacke" target="_blank" aria-label="GitHub" class="hover:text-cyan-400 transition">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="currentColor" viewBox="0 0 24 24"><path d="M12 .297c-6.627 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.112.82-.266.82-.591 0-.29-.015-1.05-.015-2.075-3.338.724-4.042-1.61-4.042-1.61-.546-1.387-1.334-1.758-1.334-1.758-1.09-.744.08-.73.08-.73 1.205.086 1.838 1.238 1.838 1.238 1.07 1.83 2.809 1.3 3.492.992.109-.775.419-1.3.762-1.6C7.29 18.235 4.543 17.21 4.543 12.59c0-1.3.465-2.353 1.235-3.18-.12-.3-.535-1.503.105-3.14 0 0 1-.318 3.295 1.205.96-.266 1.98-.399 3-.399s2.04.133 3 .399c2.295-1.523 3.295-1.205 3.295-1.205.64 1.637.225 2.84.105 3.14.77.827 1.235 1.88 1.235 3.18 0 4.63-2.75 5.637-5.387 5.92-.42.36-.807 1.096-.807 2.22 0 1.606.002 2.899.002 3.294 0 .327.218.705.825.591C20.562 22.094 24 17.567 24 12.297c0-6.627-5.373-12-12-12z"/></svg>
+                </a>
+                <a href="https://www.linkedin.com/in/arthur-godoy-stacke-74972a245/" target="_blank" aria-label="LinkedIn" class="hover:text-cyan-400 transition">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="currentColor" viewBox="0 0 24 24"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
+                </a>
+            </div>
+        </div>
+    </footer>
+
     <script src="script.js"></script>
-  </body>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.js"></script>
+</body>
 </html>
