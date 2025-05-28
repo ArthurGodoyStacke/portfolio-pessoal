@@ -180,7 +180,7 @@ form.addEventListener('submit', e => {
 });
 
 // Lógica de animação de entrada das seções (Intersection Observer)
-const sections = document.querySelectorAll('main section'); // Seleciona todas as seções dentro de <main>
+const sections = document.querySelectorAll('main section.section-animated'); // Seleciona apenas as seções que devem ser animadas
 
 const observerOptions = {
     root: null, // O viewport é o root
@@ -191,8 +191,8 @@ const observerOptions = {
 const sectionObserver = new IntersectionObserver((entries, observer) => {
     entries.forEach(entry => {
         if (entry.isIntersecting) {
-            entry.target.classList.remove('section-hidden');
-            entry.target.classList.add('section-visible');
+            // Adiciona a classe 'is-visible' para iniciar a transição
+            entry.target.classList.add('is-visible');
             observer.unobserve(entry.target); // Para de observar depois de animar uma vez
         }
     });
@@ -207,4 +207,11 @@ sections.forEach(section => {
 // Inicia efeitos quando o DOM estiver pronto
 document.addEventListener('DOMContentLoaded', () => {
     setTimeout(type, 1000);
+
+    // No desktop, garantir que a primeira seção (home) já esteja visível
+    // e com a classe 'is-visible' aplicada, para não ter um "salto"
+    const homeSection = document.getElementById('home');
+    if (homeSection && window.innerWidth >= 768) { // Apenas se for desktop
+        homeSection.classList.add('is-visible');
+    }
 });
