@@ -31,19 +31,32 @@ function smoothScroll(target, duration = 800) {
     if (!el) return;
 
     const headerH = document.querySelector('header').offsetHeight;
-    const to = el.getBoundingClientRect().top + window.pageYOffset - headerH - 20; // Mantém um pequeno offset
+    const to = el.getBoundingClientRect().top + window.scrollY - headerH - 20;
 
-    const start = window.pageYOffset;
-    const dist = to - start;
-    let startTime = null;
+    const start = window.scrollY;
+    const distance = to - start;
+    const startTime = performance.now();
 
-    // Função de easing (suavização)
-    function ease(t, b, c, d) {
-        t /= d / 2;
-        if (t < 1) return c / 2 * t * t + b;
-        t--;
-        return -c / 2 * (t * (t - 2) - 1) + b;
+    function animateScroll(currentTime) {
+        const timeElapsed = currentTime - startTime;
+        const progress = Math.min(timeElapsed / duration, 1);
+
+        window.scrollTo(0, start + distance * ease(progress));
+
+        if (progress < 1) {
+            requestAnimationFrame(animateScroll);
+        }
     }
+
+    function ease(t) {
+        return t < 0.5
+            ? 2 * t * t
+            : -1 + (4 - 2 * t) * t;
+    }
+
+    requestAnimationFrame(animateScroll);
+}
+
 
     // Animação
     function anim(now) {
@@ -54,19 +67,24 @@ function smoothScroll(target, duration = 800) {
     }
 
     requestAnimationFrame(anim);
-}
+  
 
-// Configura todos os links internos
-document.querySelectorAll('a[href^="#"]').forEach(a => {
-    a.addEventListener('click', e => {
+
+document.querySelectorAll('a[href^="#"]').forEach(link => {
+    link.addEventListener('click', e => {
         e.preventDefault();
-        smoothScroll(a.getAttribute('href'));
-        // Fechar o menu mobile ao clicar em um link
-        if (!mobileMenu.classList.contains('-translate-y-full')) {
+        const target = link.getAttribute('href');
+
+        // Se for mobile e menu estiver aberto, fecha antes do scroll
+        if (window.innerWidth < 768 && !mobileMenu.classList.contains('-translate-y-full')) {
             closeMobileMenu();
+            setTimeout(() => smoothScroll(target), 300); // Espera a animação do menu terminar
+        } else {
+            smoothScroll(target);
         }
     });
 });
+
 
 
 // Controle do menu mobile
