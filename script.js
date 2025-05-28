@@ -11,11 +11,9 @@ function applyTheme() {
     } else {
         htmlEl.classList.remove('dark');
     }
-
     // Atualiza o emoji do botão
     toggleBtn.textContent = darkMode ? '☀️' : '🌙';
 }
-
 
 // Alternar tema
 toggleBtn.addEventListener('click', () => {
@@ -27,7 +25,12 @@ toggleBtn.addEventListener('click', () => {
 // Aplicar tema ao carregar
 applyTheme();
 
-// Scroll suave para âncoras
+// Detecta se é desktop (>= 768px) ou mobile
+function isDesktop() {
+    return window.innerWidth >= 768;
+}
+
+// Scroll suave customizado para desktop
 function smoothScroll(target, baseSpeed = 0.5, minDuration = 300, maxDuration = 700) {
     const el = document.querySelector(target);
     if (!el) return;
@@ -38,7 +41,6 @@ function smoothScroll(target, baseSpeed = 0.5, minDuration = 300, maxDuration = 
     const start = window.pageYOffset;
     const distance = Math.abs(to - start);
 
-    // Calcula a duração com base na distância
     const duration = Math.min(maxDuration, Math.max(minDuration, distance * baseSpeed));
 
     let startTime = null;
@@ -60,35 +62,41 @@ function smoothScroll(target, baseSpeed = 0.5, minDuration = 300, maxDuration = 
     requestAnimationFrame(anim);
 }
 
-
-    // Animação
-    function anim(now) {
-        if (!startTime) startTime = now;
-        const t = now - startTime;
-        window.scrollTo(0, ease(t, start, dist, duration));
-        if (t < duration) requestAnimationFrame(anim);
-    }
-
-    requestAnimationFrame(anim);
-  
-
-
+// Evento de clique nos links com âncoras
 document.querySelectorAll('a[href^="#"]').forEach(link => {
     link.addEventListener('click', e => {
         e.preventDefault();
         const target = link.getAttribute('href');
 
-        // Se for mobile e menu estiver aberto, fecha antes do scroll
-        if (window.innerWidth < 768 && !mobileMenu.classList.contains('-translate-y-full')) {
-            closeMobileMenu();
-            setTimeout(() => smoothScroll(target), 300); // Espera a animação do menu terminar
-        } else {
+        if (isDesktop()) {
+            // No desktop: scroll suave customizado
             smoothScroll(target);
+        } else {
+            // No mobile: scroll suave nativo
+            const el = document.querySelector(target);
+            if (!el) return;
+
+            // Fecha menu mobile se aberto
+            if (!mobileMenu.classList.contains('-translate-y-full')) {
+                closeMobileMenu();
+                setTimeout(() => {
+                    el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }, 300);
+            } else {
+                el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
         }
     });
 });
 
-
+// Adiciona CSS global para scroll suave nativo (mobile e desktop)
+const style = document.createElement('style');
+style.textContent = `
+    html {
+        scroll-behavior: smooth;
+    }
+`;
+document.head.appendChild(style);
 
 // Controle do menu mobile
 const menuBtn = document.getElementById('menu-btn');
@@ -97,26 +105,23 @@ const body = document.body;
 
 function openMobileMenu() {
     mobileMenu.style.display = 'flex'; // Exibe o menu
-    // Pequeno delay para garantir que 'display: flex' seja aplicado antes da transição
     setTimeout(() => {
-        mobileMenu.classList.remove('-translate-y-full', 'opacity-0'); // Remove classes para animar
-        mobileMenu.classList.add('opacity-100'); // Garante que a opacidade chegue a 100%
-        body.classList.add('no-scroll'); // Ainda útil se o menu ficar muito grande e cobrir parte da tela
+        mobileMenu.classList.remove('-translate-y-full', 'opacity-0');
+        mobileMenu.classList.add('opacity-100');
+        body.classList.add('no-scroll');
     }, 10);
 }
 
 function closeMobileMenu() {
-    mobileMenu.classList.add('-translate-y-full', 'opacity-0'); // Move o menu para cima e o torna transparente
-    mobileMenu.classList.remove('opacity-100'); // Remove a opacidade total
-    // Espera a transição terminar para esconder completamente e reabilitar a rolagem
+    mobileMenu.classList.add('-translate-y-full', 'opacity-0');
+    mobileMenu.classList.remove('opacity-100');
     mobileMenu.addEventListener('transitionend', function handler() {
-        mobileMenu.style.display = 'none'; // Esconde o menu após a transição
-        body.classList.remove('no-scroll'); // Reabilita rolagem
-        mobileMenu.removeEventListener('transitionend', handler); // Remove o listener
-    }, { once: true }); // Executa o listener apenas uma vez
+        mobileMenu.style.display = 'none';
+        body.classList.remove('no-scroll');
+        mobileMenu.removeEventListener('transitionend', handler);
+    }, { once: true });
 }
 
-// Alterna o menu mobile ao clicar no botão de hambúrguer
 menuBtn.addEventListener('click', () => {
     if (mobileMenu.classList.contains('-translate-y-full')) {
         openMobileMenu();
@@ -125,16 +130,16 @@ menuBtn.addEventListener('click', () => {
     }
 });
 
-// Ajuste no clique dos links do menu mobile para fechar o menu
+// Fecha menu ao clicar em link
 document.querySelectorAll('#mobile-menu a').forEach(link => {
     link.addEventListener('click', () => {
-        closeMobileMenu(); // Fecha o menu quando um link é clicado
+        closeMobileMenu();
     });
 });
 
-// Fecha o menu se a tela for redimensionada para desktop
+// Fecha menu se redimensionar para desktop
 window.addEventListener('resize', () => {
-    if (window.innerWidth >= 768) { // 768px é o breakpoint 'md' do Tailwind CSS
+    if (window.innerWidth >= 768) {
         closeMobileMenu();
     }
 });
@@ -181,18 +186,15 @@ form.addEventListener('submit', e => {
     const nome = document.getElementById('name').value.trim();
     const mensagem = document.getElementById('message').value.trim();
 
-    // Validação
     if (!nome || !mensagem) {
         msgBox.textContent = 'Preencha todos os campos';
         msgBox.className = 'text-red-400 text-center mt-2 text-sm';
         return setTimeout(() => msgBox.textContent = '', 3000);
     }
 
-    // Envia para WhatsApp (substitua SEUNUMERO)
-    const text = encodeURIComponent(` Mensagem: ${mensagem}`);
+    const text = encodeURIComponent(`Mensagem: ${mensagem}`);
     window.open(`https://wa.me/5551998862191?text=${text}`, '_blank');
 
-    // Feedback visual
     msgBox.textContent = 'Mensagem enviada com sucesso!';
     msgBox.className = 'text-green-400 text-center mt-2 text-sm';
     form.reset();
@@ -200,39 +202,35 @@ form.addEventListener('submit', e => {
     setTimeout(() => msgBox.textContent = '', 3000);
 });
 
-// Lógica de animação de entrada das seções (Intersection Observer)
-const sections = document.querySelectorAll('main section.section-animated'); // Seleciona apenas as seções que devem ser animadas
-
+// Animações das seções (Intersection Observer) só no desktop
+const sections = document.querySelectorAll('main section.section-animated');
 const observerOptions = {
-    root: null, // O viewport é o root
+    root: null,
     rootMargin: '0px',
-    threshold: 0.1 // 10% da seção visível para acionar
+    threshold: 0.1
 };
 
 const sectionObserver = new IntersectionObserver((entries, observer) => {
+    if (!isDesktop()) return; // Desliga animação no mobile
+
     entries.forEach(entry => {
         if (entry.isIntersecting) {
-            // Adiciona a classe 'is-visible' para iniciar a transição (no desktop)
             entry.target.classList.add('is-visible');
-            observer.unobserve(entry.target); // Para de observar depois de animar uma vez
+            observer.unobserve(entry.target);
         }
     });
 }, observerOptions);
 
-// Observa cada seção
 sections.forEach(section => {
     sectionObserver.observe(section);
 });
-
 
 // Inicia efeitos quando o DOM estiver pronto
 document.addEventListener('DOMContentLoaded', () => {
     setTimeout(type, 1000);
 
-    // No desktop, garantir que a primeira seção (home) já esteja visível
-    // e com a classe 'is-visible' aplicada, para não ter um "salto"
-    const homeSection = document.getElementById('home');
-    if (homeSection && window.innerWidth >= 768) { // Apenas se for desktop
-        homeSection.classList.add('is-visible');
+    if (isDesktop()) {
+        const homeSection = document.getElementById('home');
+        if (homeSection) homeSection.classList.add('is-visible');
     }
 });
